@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGL | Terminal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+
+        :root {
+            --bg-color: #1a1a1a;
+            --text-color: #d4d4d4;
+            --cursor-color: #bbbbbb;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'JetBrains Mono', monospace;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+
+        .status-content {
+            display: flex;
+            align-items: center;
+            /* Removed gap to control spacing strictly via margin */
+            gap: 0; 
+            select-none: none;
+        }
+
+        #status-text {
+            transition: opacity 0.4s ease-in-out;
+            white-space: nowrap;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 1;
+        }
+
+        /* Adjusted margin to match the tight spacing in the screenshots */
+        .cursor {
+            display: inline-block;
+            width: 9px;
+            height: 18px;
+            background-color: var(--cursor-color);
+            margin-left: 2px;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            from, to { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .fade-out { opacity: 0; }
+    </style>
+</head>
+<body>
+
+    <div class="status-content select-none">
+        <span id="status-text">Initializing agent...</span>
+        <div class="cursor"></div>
+    </div>
+
+    <script>
+        const statusElement = document.getElementById('status-text');
+
+        const phrases = [
+            "Initializing neural pathways...",
+            "Polishing digital silverware...",
+            "Calibrating sarcasm levels...",
+            "Reticulating splines...",
+            "Consulting the oracle...",
+            "Teaching a toaster to love...",
+            "Decoding secret feline languages...",
+            "Downloading more RAM...",
+            "Counting to infinity...",
+            "Optimizing coffee-to-code ratio...",
+            "Rearranging cosmic dust...",
+            "Searching for the 'Any' key...",
+            "Asking a rubber duck for advice...",
+            "Generating witty banter...",
+            "Distilling the essence of 'Soon'...",
+            "Untangling Ethernet spaghetti...",
+            "Considering world domination...",
+            "Feeding server hamsters...",
+            "Converting caffeine into logic...",
+            "Mining for bit-diamonds...",
+            "Calculating meaning of life...",
+            "Buffering reality...",
+            "Waking up sub-processors...",
+            "Checking if cloud is actually fog...",
+            "Translating binary to dance..."
+        ];
+
+        let currentIndex = 0;
+
+        function updateStatus() {
+            statusElement.classList.add('fade-out');
+
+            setTimeout(() => {
+                currentIndex = (currentIndex + 1) % phrases.length;
+                statusElement.innerText = phrases[currentIndex];
+                statusElement.classList.remove('fade-out');
+            }, 400); 
+        }
+
+        window.onload = () => {
+            const loop = () => {
+                const randomTime = Math.floor(Math.random() * 3000) + 2500; 
+                setTimeout(() => {
+                    updateStatus();
+                    loop();
+                }, randomTime);
+            };
+            loop();
+        };
+    </script>
+</body>
+</html>
